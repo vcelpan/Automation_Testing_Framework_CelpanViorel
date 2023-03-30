@@ -4,9 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class RegisterPage extends Page{
+public class RegisterPage extends Page {
 
-    public RegisterPage(WebDriver webDriver){
+    public RegisterPage(WebDriver webDriver) {
         super(webDriver);
     }
 
@@ -59,18 +59,24 @@ public class RegisterPage extends Page{
         return continueButton;
     }
 
-    public void fillInRegisterForm(String firstName, String lastName, String email, String password, boolean subscribe){
+    public void fillInRegisterForm(String firstName, String lastName, String email, String password, boolean subscribe) {
         firstNameInput.sendKeys(firstName);
         lastNameInput.sendKeys(lastName);
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
 
-        if (subscribe){
+        if (subscribe) {
             subscribeRadioButtonYes.click();
         } else {
             subscribeRadioButtonNo.click();
         }
 
         privacyCheckBox.click();
+    }
+
+    public boolean allTheElementsAreDisplayed() {
+        return firstNameInput.isDisplayed() && lastNameInput.isDisplayed() && emailInput.isDisplayed() &&
+                subscribeRadioButtonYes.isDisplayed() && subscribeRadioButtonNo.isDisplayed() &&
+                privacyCheckBox.isDisplayed() && continueButton.isDisplayed();
     }
 }
