@@ -136,6 +136,18 @@ public abstract class Page {
         }
     }
 
+    public void clikcOnMyAccountBtn(){
+        myAccountButton.click();
+    }
+
+    public void clickOnRegisterBtn(){
+        registerButton.click();
+    }
+
+    public boolean registerButtonIsDisplayed(){
+        return registerButton.isDisplayed();
+    }
+
     public void navigateToRegisterPage(){
         myAccountButton.click();
         registerButton.click();
