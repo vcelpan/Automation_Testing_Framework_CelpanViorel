@@ -10,6 +10,13 @@ public class LoginPage extends Page{
         super(webDriver);
     }
 
+    private static final String endpoint = "/index.php?route=account/login";
+
+    public LoginPage toPage() {
+        driver.get(url + endpoint);
+        return this;
+    }
+
     @FindBy(id = "input-email")
     private WebElement emailInput;
     @FindBy(id = "input-password")

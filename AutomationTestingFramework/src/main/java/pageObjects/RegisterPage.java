@@ -10,6 +10,13 @@ public class RegisterPage extends Page {
         super(webDriver);
     }
 
+    private static final String endpoint = "/index.php?route=account/register";
+
+    public RegisterPage toPage() {
+        driver.get(url + endpoint);
+        return this;
+    }
+
     @FindBy(id = "input-firstname")
     private WebElement firstNameInput;
     @FindBy(id = "input-lastname")
@@ -26,38 +33,6 @@ public class RegisterPage extends Page {
     private WebElement privacyCheckBox;
     @FindBy(xpath = "//*[@id=\"form-register\"]/div/div/button")
     private WebElement continueButton;
-
-    public WebElement getFirstNameInput() {
-        return firstNameInput;
-    }
-
-    public WebElement getLastNameInput() {
-        return lastNameInput;
-    }
-
-    public WebElement getEmailInput() {
-        return emailInput;
-    }
-
-    public WebElement getPasswordInput() {
-        return passwordInput;
-    }
-
-    public WebElement getSubscribeRadioButtonYes() {
-        return subscribeRadioButtonYes;
-    }
-
-    public WebElement getSubscribeRadioButtonNo() {
-        return subscribeRadioButtonNo;
-    }
-
-    public WebElement getPrivacyCheckBox() {
-        return privacyCheckBox;
-    }
-
-    public WebElement getContinueButton() {
-        return continueButton;
-    }
 
     public void fillInRegisterForm(String firstName, String lastName, String email, String password, boolean subscribe) {
         firstNameInput.sendKeys(firstName);

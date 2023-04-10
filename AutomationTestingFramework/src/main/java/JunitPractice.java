@@ -7,7 +7,7 @@ import utils.CurrencyEnum;
 
 public class JunitPractice {
 
-    WebDriverManager webDriverManager = new WebDriverManager("CHROME");
+    WebDriverManager webDriverManager = new WebDriverManager();
 
     @BeforeEach
     public void beforeTestProcedure(){

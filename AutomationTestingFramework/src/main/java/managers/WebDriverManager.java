@@ -6,18 +6,17 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 
 public class WebDriverManager {
 
-    public WebDriverManager(String webDriverType){
-        this.webDriverType = webDriverType;
-    }
-
     private WebDriver driver;
     private String webDriverType;
+
+    public WebDriverManager(){
+        webDriverType = TestDataFileReaderManager.getBrowserType();
+    }
 
     private WebDriver createDriver(){
         switch (webDriverType){
