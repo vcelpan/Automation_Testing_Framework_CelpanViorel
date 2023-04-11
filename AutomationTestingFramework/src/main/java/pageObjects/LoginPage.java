@@ -6,16 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends Page{
 
-    public LoginPage(WebDriver webDriver){
-        super(webDriver);
-    }
-
     private static final String endpoint = "/index.php?route=account/login";
-
-    public LoginPage toPage() {
-        driver.get(url + endpoint);
-        return this;
-    }
 
     @FindBy(id = "input-email")
     private WebElement emailInput;
@@ -26,20 +17,13 @@ public class LoginPage extends Page{
     @FindBy(xpath = "//*[@id=\"form-login\"]/button")
     private WebElement loginButton;
 
-    public WebElement getEmailInput() {
-        return emailInput;
+    public LoginPage(WebDriver webDriver){
+        super(webDriver);
     }
 
-    public WebElement getPasswordInput() {
-        return passwordInput;
-    }
-
-    public WebElement getForgotPasswordButton() {
-        return forgotPasswordButton;
-    }
-
-    public WebElement getLoginButton() {
-        return loginButton;
+    public LoginPage toPage() {
+        driver.get(url + endpoint);
+        return this;
     }
 
     public void fillInLoginForm(String email, String password){

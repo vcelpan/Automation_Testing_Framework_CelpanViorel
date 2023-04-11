@@ -17,19 +17,4 @@ public class HomePageSteps {
         testContext = context;
         homePage = new HomePage(testContext.getWebDriverManager().getDriver());
     }
-
-/*    @When("^my account button is clicked$")
-    public void myAccountButtonIsClicked() {
-        homePage.clikcOnMyAccountBtn();
-    }
-
-    @Then("^register account button is displayed$")
-    public void registerAccountButtonIsDisplayed() {
-        Assertions.assertTrue(homePage.registerButtonIsDisplayed(), "The register account button is displayed.");
-    }
-
-    @And("^register account button is clicked$")
-    public void registerAccountButtonIsClicked() {
-        homePage.clickOnRegisterBtn();
-    }*/
 }
