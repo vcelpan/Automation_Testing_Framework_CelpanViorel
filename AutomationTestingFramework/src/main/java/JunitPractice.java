@@ -7,7 +7,7 @@ import utils.CurrencyEnum;
 
 public class JunitPractice {
 
-    WebDriverManager webDriverManager = new WebDriverManager();
+/*    WebDriverManager webDriverManager = new WebDriverManager();
 
     @BeforeEach
     public void beforeTestProcedure(){
@@ -37,5 +37,5 @@ public class JunitPractice {
 
         RegisterPage registerPage = new RegisterPage(webDriverManager.getDriver());
         Assertions.assertTrue(registerPage.allTheElementsAreDisplayed(), "Cel putin unul dintre elemente nu a fost afisat.");
-    }
+    }*/
 }

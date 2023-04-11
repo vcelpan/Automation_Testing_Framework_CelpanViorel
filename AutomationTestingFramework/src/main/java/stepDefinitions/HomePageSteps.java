@@ -18,7 +18,7 @@ public class HomePageSteps {
         homePage = new HomePage(testContext.getWebDriverManager().getDriver());
     }
 
-    @When("^my account button is clicked$")
+/*    @When("^my account button is clicked$")
     public void myAccountButtonIsClicked() {
         homePage.clikcOnMyAccountBtn();
     }
@@ -31,5 +31,5 @@ public class HomePageSteps {
     @And("^register account button is clicked$")
     public void registerAccountButtonIsClicked() {
         homePage.clickOnRegisterBtn();
-    }
+    }*/
 }

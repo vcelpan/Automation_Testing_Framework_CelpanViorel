@@ -9,12 +9,12 @@ public class TestDataFileReaderManager {
 
     public static void initializeProperties() {
         properties = new Properties();
-        String PROPERTY_FILE_PATH = "src/main/resources/test.properties";
+        String PROPERTY_FILE_PATH = "src/main/resources/config.properties";
         try {
             properties.load(new FileReader(PROPERTY_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("test.properties not found at " + PROPERTY_FILE_PATH);
+            throw new RuntimeException("config.properties not found at " + PROPERTY_FILE_PATH);
         }
     }
 
@@ -37,4 +37,5 @@ public class TestDataFileReaderManager {
         else
             throw new RuntimeException("The Browser type is not specified in the test.properties file for the Key:browserType");
     }
+
 }
