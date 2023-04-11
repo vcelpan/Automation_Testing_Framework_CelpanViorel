@@ -21,7 +21,7 @@ public class WebDriverManager {
     private WebDriver createDriver(){
         switch (webDriverType){
             case "CHROME":
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/macOS/chromedriver");
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 driver = new ChromeDriver(chromeOptions);
