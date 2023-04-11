@@ -6,16 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class RegisterPage extends Page {
 
-    public RegisterPage(WebDriver webDriver) {
-        super(webDriver);
-    }
-
     private static final String endpoint = "/index.php?route=account/register";
-
-    public RegisterPage toPage() {
-        driver.get(url + endpoint);
-        return this;
-    }
 
     @FindBy(id = "input-firstname")
     private WebElement firstNameInput;
@@ -33,6 +24,15 @@ public class RegisterPage extends Page {
     private WebElement privacyCheckBox;
     @FindBy(xpath = "//*[@id=\"form-register\"]/div/div/button")
     private WebElement continueButton;
+
+    public RegisterPage(WebDriver webDriver) {
+        super(webDriver);
+    }
+
+    public RegisterPage toPage() {
+        driver.get(url + endpoint);
+        return this;
+    }
 
     public void fillInRegisterForm(String firstName, String lastName, String email, String password, boolean subscribe) {
         firstNameInput.sendKeys(firstName);
