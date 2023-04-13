@@ -1,6 +1,8 @@
 package pageObjects;
 
+import ContextManagers.ContextKeys;
 import managers.TestDataFileReaderManager;
+import managers.WaitManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -82,11 +84,15 @@ public abstract class Page {
     }
 
     public static void clickOnElement(Object pageName, String elementName, WebDriver driver){
-        getElement(pageName,elementName,driver).click();
+        WebElement element = getElement(pageName,elementName,driver);
+        WaitManager.toBeVisible(element, driver);
+        element.click();
     }
 
     public static boolean elementIsDisplayed(Object pageName, String elementName, WebDriver driver){
-        return getElement(pageName,elementName,driver).isDisplayed();
+        WebElement element = getElement(pageName,elementName,driver);
+        WaitManager.toBeVisible(element, driver);
+        return element.isDisplayed();
     }
 
     public static WebElement getElement(Object pageName, String elementName, WebDriver driver) {
