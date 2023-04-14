@@ -35,15 +35,15 @@ public class GeneralSteps {
 
     @When("^\"([^\"]*)\" button is clicked$")
     public void buttonIsClicked(String button) {
-        LoggerManager.logInfo(button + " is clicked");
         Page.clickOnElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
+        LoggerManager.logInfo(button + " is clicked");
     }
 
     @Then("^\"([^\"]*)\" is displayed$")
     public void isDisplayed(String button) {
-        LoggerManager.logInfo(button + " is displayed");
         boolean verdict = Page.elementIsDisplayed(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
         Assertions.assertTrue(verdict, "The button is displayed.");
+        LoggerManager.logInfo(button + " is displayed: " + verdict);
     }
 
     @Then("^the new url contains the following string \"([^\"]*)\"$")

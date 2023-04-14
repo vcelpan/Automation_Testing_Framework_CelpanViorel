@@ -84,15 +84,11 @@ public abstract class Page {
     }
 
     public static void clickOnElement(Object pageName, String elementName, WebDriver driver){
-        WebElement element = getElement(pageName,elementName,driver);
-        WaitManager.toBeVisible(element, driver);
-        element.click();
+        getElement(pageName,elementName,driver).click();
     }
 
     public static boolean elementIsDisplayed(Object pageName, String elementName, WebDriver driver){
-        WebElement element = getElement(pageName,elementName,driver);
-        WaitManager.toBeVisible(element, driver);
-        return element.isDisplayed();
+        return getElement(pageName,elementName,driver).isDisplayed();
     }
 
     public static WebElement getElement(Object pageName, String elementName, WebDriver driver) {
@@ -119,6 +115,7 @@ public abstract class Page {
             field.setAccessible(true);
             try {
                 webElement = (WebElement) field.get(clazz.getConstructor(WebDriver.class).newInstance(driver));
+                WaitManager.toBeVisible(webElement, driver);
             } catch (IllegalAccessException | NoSuchMethodException | InstantiationException |
                      InvocationTargetException | SecurityException e) {
                 e.printStackTrace();

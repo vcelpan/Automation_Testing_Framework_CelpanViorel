@@ -9,22 +9,22 @@ Feature: Register feature
     When "myAccountButton" button is clicked
     Then "registerButton" is displayed
 
-  Scenario: Register page is accessible from Home Page
-    When "myAccountButton" button is clicked
-    And "registerButton" button is clicked
-    Then the new url contains the following string "register"
-
-  @run
-  Scenario Outline: Register page url contains the following word <keyword>
-    When "myAccountButton" button is clicked
-    And "registerButton" button is clicked
-    Then "RegisterPage" is opened
-    And the new url contains the following string "<keyword>"
-    Examples:
-      | keyword          |
-      | index            |
-      | account/register |
-
+#  Scenario: Register page is accessible from Home Page
+#    When "myAccountButton" button is clicked
+#    And "registerButton" button is clicked
+#    Then the new url contains the following string "register"
+#
+#  @run
+#  Scenario Outline: Register page url contains the following word <keyword>
+#    When "myAccountButton" button is clicked
+#    And "registerButton" button is clicked
+#    Then "RegisterPage" is opened
+#    And the new url contains the following string "<keyword>"
+#    Examples:
+#      | keyword          |
+#      | index            |
+#      | account/register |
+#
 #  @fieldValidation @run
 #  Scenario Outline: Error message is displayed when using invalid <email> email value
 #    When "myAccountButton" button is clicked

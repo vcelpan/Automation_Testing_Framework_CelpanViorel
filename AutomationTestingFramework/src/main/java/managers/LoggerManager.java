@@ -9,6 +9,7 @@ public class LoggerManager {
 
     public static void initLogger() {
         logger = logger.getLogger(LoggerManager.class.getName());
+        logInfo("Logger initiated successfully.");
     }
 
     public static void logInfo(String message) {

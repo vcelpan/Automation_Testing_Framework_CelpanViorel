@@ -34,7 +34,9 @@ public class WebDriverManager {
                 driver = new FirefoxDriver(options);
                 break;
             default:
-                System.out.println("Optiunea de web driver indicate nu este valabila. Mai incercati!");
+                String message = "You don't have such configuration for webDriverType - " + webDriverType;
+                LoggerManager.logConfig(message);
+                throw new RuntimeException(message);
         }
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -55,7 +57,7 @@ public class WebDriverManager {
     public void closeDriver(){
         if (driver != null){
             driver.close();
-            System.out.println("Webdriverul a fost inchis!");
+            LoggerManager.logInfo("Webdriverul a fost inchis!");
         }
     }
 }
