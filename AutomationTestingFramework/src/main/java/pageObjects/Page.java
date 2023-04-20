@@ -1,13 +1,10 @@
 package pageObjects;
 
-import ContextManagers.ContextKeys;
 import managers.TestDataFileReaderManager;
 import managers.WaitManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.CurrencyEnum;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -84,7 +81,9 @@ public abstract class Page {
     }
 
     public static void clickOnElement(Object pageName, String elementName, WebDriver driver){
-        getElement(pageName,elementName,driver).click();
+        WebElement button = getElement(pageName,elementName,driver);
+        WaitManager.toBeClickable(button, driver);
+        button.click();
     }
 
     public static boolean elementIsDisplayed(Object pageName, String elementName, WebDriver driver){

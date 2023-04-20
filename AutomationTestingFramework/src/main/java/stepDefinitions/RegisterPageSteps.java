@@ -1,8 +1,10 @@
 package stepDefinitions;
 
+import ContextManagers.ContextKeys;
 import ContextManagers.TestContext;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
+import pageObjects.Page;
 import pageObjects.RegisterPage;
 
 import java.util.Map;
@@ -23,6 +25,10 @@ public class RegisterPageSteps {
         String lastName = formData.get("lastName");
         String email = formData.get("email");
         String password = formData.get("password");
-        registerPage.fillInRegisterForm(firstName, lastName, email, password, true);
+
+        Page.getElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), "firstNameInput", testContext.getWebDriverManager().getDriver()).sendKeys(firstName);
+        Page.getElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), "lastNameInput", testContext.getWebDriverManager().getDriver()).sendKeys(lastName);
+        Page.getElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), "emailInput", testContext.getWebDriverManager().getDriver()).sendKeys(email);
+        Page.getElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), "passwordInput", testContext.getWebDriverManager().getDriver()).sendKeys(password);
     }
 }

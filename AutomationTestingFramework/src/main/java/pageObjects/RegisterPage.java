@@ -33,25 +33,4 @@ public class RegisterPage extends Page {
         driver.get(url + endpoint);
         return this;
     }
-
-    public void fillInRegisterForm(String firstName, String lastName, String email, String password, boolean subscribe) {
-        firstNameInput.sendKeys(firstName);
-        lastNameInput.sendKeys(lastName);
-        emailInput.sendKeys(email);
-        passwordInput.sendKeys(password);
-
-        if (subscribe) {
-            subscribeRadioButtonYes.click();
-        } else {
-            subscribeRadioButtonNo.click();
-        }
-
-        privacyCheckBox.click();
-    }
-
-    public boolean allTheElementsAreDisplayed() {
-        return firstNameInput.isDisplayed() && lastNameInput.isDisplayed() && emailInput.isDisplayed() &&
-                subscribeRadioButtonYes.isDisplayed() && subscribeRadioButtonNo.isDisplayed() &&
-                privacyCheckBox.isDisplayed() && continueButton.isDisplayed();
-    }
 }

@@ -15,7 +15,7 @@ public class Hooks {
 
     @Before
     public void setUpBeforeEach(){
-        testContext.getWebDriverManager().getDriver();
+        testContext.getWebDriverManager().getDriver().manage().window().maximize();
         LoggerManager.logInfo("The test case is started.");
     }
 

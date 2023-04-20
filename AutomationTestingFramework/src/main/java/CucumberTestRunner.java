@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
         features = "src/main/java/features",
         glue = "stepDefinitions",
         snippets = SnippetType.CAMELCASE,
-        tags = {},
+        tags = {"@fieldValidation"},
         plugin = {"pretty", "html:target/cucumber-reports"}
 )
 

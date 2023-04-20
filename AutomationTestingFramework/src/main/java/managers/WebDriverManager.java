@@ -3,11 +3,9 @@ package managers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverManager {
@@ -30,7 +28,6 @@ public class WebDriverManager {
             case "FIREFOX":
                 System.setProperty("webdriver.gecko.driver", "src/main/resources/drivers/macOS/geckodriver");
                 FirefoxOptions options = new FirefoxOptions();
-//                options.setBinary(new FirefoxBinary(new File("C:\\Program Files\\Mozilla Firefox\\firefox.exe")));
                 driver = new FirefoxDriver(options);
                 break;
             default:

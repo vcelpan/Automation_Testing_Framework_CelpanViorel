@@ -25,9 +25,4 @@ public class LoginPage extends Page{
         driver.get(url + endpoint);
         return this;
     }
-
-    public void fillInLoginForm(String email, String password){
-        emailInput.sendKeys(email);
-        passwordInput.sendKeys(password);
-    }
 }

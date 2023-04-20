@@ -9,8 +9,6 @@ import cucumber.api.java.en.When;
 import managers.LoggerManager;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pageObjects.Page;
 
 import java.util.List;
@@ -57,8 +55,7 @@ public class GeneralSteps {
         for (int i = 0; i < errorMessages.size(); i++) {
             boolean elementIsDisplayed = false;
             try {
-                WebElement webElement = testContext.getWebDriverManager().getDriver().
-                        findElement(By.xpath("//*[contains(text(),'" + errorMessages.get(i) + "')]]"));
+                String alertMessage = testContext.getWebDriverManager().getDriver().switchTo().alert().getText();
                 elementIsDisplayed = true;
             } catch (Exception e) {
                 e.printStackTrace();
