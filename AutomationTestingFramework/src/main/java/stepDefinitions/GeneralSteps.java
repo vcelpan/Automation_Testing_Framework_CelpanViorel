@@ -6,10 +6,9 @@ import cucumber.api.java.en.Given;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import managers.LoggerManager;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pageObjects.Page;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class GeneralSteps {
     @Given("^\"([^\"]*)\" is opened$")
     public void isOpened(String page) {
         Page.navigateToPage(page, testContext.getWebDriverManager().getDriver());
+        LoggerManager.logInfo(page + " is opened");
         testContext.getScenarioContext().setContext(ContextKeys.PAGE, page);
 
         boolean verdict = testContext.getWebDriverManager().getDriver().getCurrentUrl().contains(Page.url);
@@ -34,13 +34,14 @@ public class GeneralSteps {
     @When("^\"([^\"]*)\" button is clicked$")
     public void buttonIsClicked(String button) {
         Page.clickOnElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
-        System.out.println("The button is clicked: " + button);
+        LoggerManager.logInfo(button + " is clicked");
     }
 
     @Then("^\"([^\"]*)\" is displayed$")
     public void isDisplayed(String button) {
         boolean verdict = Page.elementIsDisplayed(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
         Assertions.assertTrue(verdict, "The button is displayed.");
+        LoggerManager.logInfo(button + " is displayed: " + verdict);
     }
 
     @Then("^the new url contains the following string \"([^\"]*)\"$")
@@ -54,8 +55,7 @@ public class GeneralSteps {
         for (int i = 0; i < errorMessages.size(); i++) {
             boolean elementIsDisplayed = false;
             try {
-                WebElement webElement = testContext.getWebDriverManager().getDriver().
-                        findElement(By.xpath("//*[contains(text(),'" + errorMessages.get(i) + "')]]"));
+                String alertMessage = testContext.getWebDriverManager().getDriver().switchTo().alert().getText();
                 elementIsDisplayed = true;
             } catch (Exception e) {
                 e.printStackTrace();

@@ -24,8 +24,11 @@ public class TestDataFileReaderManager {
         String url = properties.getProperty("url");
         if (url != null)
             return url;
-        else
-            throw new RuntimeException("Application Url is not specified in the test.properties file for the Key:url");
+        else {
+            String message = "Application Url is not specified in the test.properties file for the Key:url";
+            LoggerManager.logConfig(message);
+            throw new RuntimeException(message);
+        }
     }
 
     public static String getBrowserType() {
@@ -34,8 +37,11 @@ public class TestDataFileReaderManager {
         String browserType = properties.getProperty("browserType");
         if (browserType != null)
             return browserType;
-        else
-            throw new RuntimeException("The Browser type is not specified in the test.properties file for the Key:browserType");
+        else {
+            String message = "The Browser type is not specified in the test.properties file for the Key:browserType";
+            LoggerManager.logConfig(message);
+            throw new RuntimeException(message);
+        }
     }
 
 }

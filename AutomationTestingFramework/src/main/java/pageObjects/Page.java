@@ -1,11 +1,10 @@
 package pageObjects;
 
 import managers.TestDataFileReaderManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import managers.WaitManager;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.CurrencyEnum;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -82,7 +81,9 @@ public abstract class Page {
     }
 
     public static void clickOnElement(Object pageName, String elementName, WebDriver driver){
-        getElement(pageName,elementName,driver).click();
+        WebElement button = getElement(pageName,elementName,driver);
+        WaitManager.toBeClickable(button, driver);
+        button.click();
     }
 
     public static boolean elementIsDisplayed(Object pageName, String elementName, WebDriver driver){
@@ -113,6 +114,7 @@ public abstract class Page {
             field.setAccessible(true);
             try {
                 webElement = (WebElement) field.get(clazz.getConstructor(WebDriver.class).newInstance(driver));
+                WaitManager.toBeVisible(webElement, driver);
             } catch (IllegalAccessException | NoSuchMethodException | InstantiationException |
                      InvocationTargetException | SecurityException e) {
                 e.printStackTrace();

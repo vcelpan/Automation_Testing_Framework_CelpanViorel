@@ -1,11 +1,6 @@
 package stepDefinitions;
 
 import ContextManagers.TestContext;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import org.junit.jupiter.api.Assertions;
 import pageObjects.HomePage;
 
 public class HomePageSteps {
