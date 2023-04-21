@@ -18,7 +18,7 @@ Feature: Register feature
   Scenario Outline: Register page url contains the following word <keyword>
     When "myAccountButton" button is clicked
     And "registerButton" button is clicked
-    Then "RegisterPage" is opened
+    Then "RegisterPage" is the new page opened
     And the new url contains the following string "<keyword>"
     Examples:
       | keyword          |
@@ -29,7 +29,7 @@ Feature: Register feature
   Scenario Outline: Error message is displayed when using invalid <email> email value
     When "myAccountButton" button is clicked
     And "registerButton" button is clicked
-    Then "RegisterPage" is opened
+    Then "RegisterPage" is the new page opened
     And the new url contains the following string "register"
     When the registration form is populated with below data:
       | firstName | George   |

@@ -6,19 +6,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class WebDriverManager {
 
     private WebDriver driver;
-    private String webDriverType;
+    private final String webDriverType;
 
-    public WebDriverManager(){
+    public WebDriverManager() {
         webDriverType = TestDataFileReaderManager.getBrowserType();
     }
 
-    private WebDriver createDriver(){
-        switch (webDriverType){
+    private void createDriver() {
+        switch (webDriverType) {
             case "CHROME":
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/macOS/chromedriver");
                 ChromeOptions chromeOptions = new ChromeOptions();
@@ -36,25 +36,13 @@ public class WebDriverManager {
                 throw new RuntimeException(message);
         }
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
-
-        return driver;
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
     }
 
     public WebDriver getDriver() {
-        if (driver == null){
-            createDriver();
-        }
-
+        if (driver == null) createDriver();
         return driver;
-    }
-
-    public void closeDriver(){
-        if (driver != null){
-            driver.close();
-            LoggerManager.logInfo("Webdriverul a fost inchis!");
-        }
     }
 }

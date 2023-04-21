@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ScenarioContext {
     private static ScenarioContext instance;
-    private Map<ContextKeys, Object> scenarioContext;
+    private final Map<ContextKeys, Object> scenarioContext;
 
     private ScenarioContext() { scenarioContext = new HashMap<>(); }
 

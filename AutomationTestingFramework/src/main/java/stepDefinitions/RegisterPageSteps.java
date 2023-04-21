@@ -2,7 +2,6 @@ package stepDefinitions;
 
 import ContextManagers.ContextKeys;
 import ContextManagers.TestContext;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import pageObjects.Page;
 import pageObjects.RegisterPage;
@@ -11,8 +10,8 @@ import java.util.Map;
 
 public class RegisterPageSteps {
 
-    private TestContext testContext;
-    private RegisterPage registerPage;
+    private final TestContext testContext;
+    private final RegisterPage registerPage;
 
     public RegisterPageSteps(TestContext context){
         testContext = context;

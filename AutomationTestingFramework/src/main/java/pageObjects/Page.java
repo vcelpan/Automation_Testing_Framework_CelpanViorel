@@ -82,6 +82,7 @@ public abstract class Page {
 
     public static void clickOnElement(Object pageName, String elementName, WebDriver driver){
         WebElement button = getElement(pageName,elementName,driver);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", button);
         WaitManager.toBeClickable(button, driver);
         button.click();
     }

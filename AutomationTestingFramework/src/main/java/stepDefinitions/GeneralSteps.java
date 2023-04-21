@@ -9,13 +9,15 @@ import cucumber.api.java.en.When;
 import managers.LoggerManager;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pageObjects.Page;
 
 import java.util.List;
 
 public class GeneralSteps {
 
-    private TestContext testContext;
+    private final TestContext testContext;
 
     public GeneralSteps(TestContext context) {
         testContext = context;
@@ -31,6 +33,15 @@ public class GeneralSteps {
         Assertions.assertTrue(verdict, "The url contains: " + Page.url);
     }
 
+    @Then("^\"([^\"]*)\" is the new page opened$")
+    public void isTheNewPageOpened(String page) {
+        testContext.getScenarioContext().setContext(ContextKeys.PAGE, page);
+        LoggerManager.logInfo(page + " is opened");
+
+        boolean verdict = testContext.getWebDriverManager().getDriver().getCurrentUrl().contains(Page.url);
+        Assertions.assertTrue(verdict, "The url contains: " + Page.url);
+    }
+
     @When("^\"([^\"]*)\" button is clicked$")
     public void buttonIsClicked(String button) {
         Page.clickOnElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
@@ -40,8 +51,8 @@ public class GeneralSteps {
     @Then("^\"([^\"]*)\" is displayed$")
     public void isDisplayed(String button) {
         boolean verdict = Page.elementIsDisplayed(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
-        Assertions.assertTrue(verdict, "The button is displayed.");
         LoggerManager.logInfo(button + " is displayed: " + verdict);
+        Assertions.assertTrue(verdict, "The button is displayed.");
     }
 
     @Then("^the new url contains the following string \"([^\"]*)\"$")
@@ -52,10 +63,11 @@ public class GeneralSteps {
 
     @Then("^the following errors (are|are not) displayed on the screen:$")
     public void theFollowingErrorsAreDisplayedOnTheScreen(String condition, List<String> errorMessages) {
-        for (int i = 0; i < errorMessages.size(); i++) {
+        for (String errorMessage : errorMessages) {
             boolean elementIsDisplayed = false;
             try {
-                String alertMessage = testContext.getWebDriverManager().getDriver().switchTo().alert().getText();
+                WebElement webElement = testContext.getWebDriverManager().getDriver().
+                        findElement(By.xpath("//*[contains(text(),'" + errorMessage + "')]]"));
                 elementIsDisplayed = true;
             } catch (Exception e) {
                 e.printStackTrace();

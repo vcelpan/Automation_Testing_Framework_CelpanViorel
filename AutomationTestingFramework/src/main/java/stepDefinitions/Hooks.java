@@ -7,7 +7,7 @@ import managers.LoggerManager;
 
 public class Hooks {
 
-    private TestContext testContext;
+    private final TestContext testContext;
 
     public Hooks(TestContext context){
         testContext = context;
