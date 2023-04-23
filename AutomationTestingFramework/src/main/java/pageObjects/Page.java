@@ -1,5 +1,6 @@
 package pageObjects;
 
+import managers.JavaScriptManager;
 import managers.TestDataFileReaderManager;
 import managers.WaitManager;
 import org.openqa.selenium.*;
@@ -80,11 +81,17 @@ public abstract class Page {
         }
     }
 
-    public static void clickOnElement(Object pageName, String elementName, WebDriver driver){
+    public static void clickOnElement(Object pageName, String elementName, WebDriver driver) throws InterruptedException {
         WebElement button = getElement(pageName,elementName,driver);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", button);
         WaitManager.toBeClickable(button, driver);
-        button.click();
+
+        try{
+            button.click();
+        } catch (ElementNotInteractableException e){
+            JavaScriptManager.scrollToElement(button, driver);
+            button.click();
+        }
+
     }
 
     public static boolean elementIsDisplayed(Object pageName, String elementName, WebDriver driver){

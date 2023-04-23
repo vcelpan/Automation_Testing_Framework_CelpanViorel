@@ -43,7 +43,7 @@ public class GeneralSteps {
     }
 
     @When("^\"([^\"]*)\" button is clicked$")
-    public void buttonIsClicked(String button) {
+    public void buttonIsClicked(String button) throws InterruptedException {
         Page.clickOnElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
         LoggerManager.logInfo(button + " is clicked");
     }
