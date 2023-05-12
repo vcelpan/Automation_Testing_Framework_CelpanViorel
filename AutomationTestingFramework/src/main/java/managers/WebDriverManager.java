@@ -1,5 +1,7 @@
 package managers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,6 +15,8 @@ public class WebDriverManager {
     private WebDriver driver;
     private final String webDriverType;
 
+    private static final Logger logger = LogManager.getLogger(WebDriverManager.class);
+
     public WebDriverManager() {
         webDriverType = TestDataFileReaderManager.getBrowserType();
     }
@@ -20,7 +24,7 @@ public class WebDriverManager {
     private void createDriver() {
         switch (webDriverType) {
             case "CHROME":
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/macOS/chromedriver");
+                System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/Windows/chromedriver.exe");
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 driver = new ChromeDriver(chromeOptions);
@@ -32,7 +36,7 @@ public class WebDriverManager {
                 break;
             default:
                 String message = "You don't have such configuration for webDriverType - " + webDriverType;
-                LoggerManager.logConfig(message);
+                logger.error(message);
                 throw new RuntimeException(message);
         }
 
