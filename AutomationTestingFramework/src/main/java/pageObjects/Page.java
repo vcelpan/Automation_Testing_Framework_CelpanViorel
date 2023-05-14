@@ -27,15 +27,15 @@ public abstract class Page {
     protected WebElement usDollarButton;
 
     // Phone number
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div[2]/ul/li[1]/span")
+    @FindBy(xpath = "//*[@id=\"top-links\"]/ul/li[1]/span")
     protected WebElement phoneNumberText;
 
     // My Account
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div[2]/ul/li[2]/div/a/span")
+    @FindBy(xpath = "//*[@id=\"top-links\"]/ul/li[2]/a/span[1]")
     protected WebElement myAccountButton;
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div[2]/ul/li[2]/div/ul/li[1]/a")
+    @FindBy(xpath = "//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/a")
     protected WebElement registerButton;
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div[2]/ul/li[2]/div/ul/li[2]/a")
+    @FindBy(xpath = "//*[@id=\"top-links\"]/ul/li[2]/ul/li[2]/a")
     protected WebElement loginButton;
 
 
@@ -91,7 +91,6 @@ public abstract class Page {
             JavaScriptManager.scrollToElement(button, driver);
             button.click();
         }
-
     }
 
     public static boolean elementIsDisplayed(Object pageName, String elementName, WebDriver driver){
@@ -128,6 +127,20 @@ public abstract class Page {
                 e.printStackTrace();
             }
         }
+        if (webElement == null) throw new RuntimeException("No such element on the page");
+
+        return webElement;
+    }
+
+    public static WebElement findElementByText(String text, WebDriver driver) {
+        WebElement webElement = null;
+        try {
+            webElement = driver.findElement(By.xpath("//*[contains(text(),'" + text + "')]"));
+            WaitManager.toBeVisible(webElement, driver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (webElement == null) throw new RuntimeException("No such element on the page");
 
         return webElement;
