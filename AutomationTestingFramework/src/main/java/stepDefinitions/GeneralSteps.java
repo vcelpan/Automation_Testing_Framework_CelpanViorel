@@ -10,8 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pageObjects.Page;
 
 import java.util.List;
@@ -69,16 +67,16 @@ public class GeneralSteps {
         for (String errorMessage : errorMessages) {
             boolean elementIsDisplayed = false;
             try {
-                WebElement webElement = testContext.getWebDriverManager().getDriver().
-                        findElement(By.xpath("//*[contains(text(),'" + errorMessage + "')]]"));
+                Page.findElementByText(errorMessage, testContext.getWebDriverManager().getDriver());
                 elementIsDisplayed = true;
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.error(e.getMessage());
             }
             if (condition.contains("are not"))
-                Assert.assertFalse("The error message is not displayed.", elementIsDisplayed);
+                Assert.assertFalse("The error message '" + errorMessage + "' is not displayed.", elementIsDisplayed);
             else {
-                Assert.assertTrue("The error message is displayed.", elementIsDisplayed);
+                Assert.assertTrue("The error message '" + errorMessage + "' is displayed.", elementIsDisplayed);
             }
         }
     }

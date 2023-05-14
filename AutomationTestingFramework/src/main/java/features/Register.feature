@@ -5,18 +5,18 @@ Feature: Register feature
   Background:
     Given "HomePage" is opened
 
-  @run @fast
+  @run @test1
   Scenario: Register button is displayed on Home Page
     When "myAccountButton" button is clicked
     Then "registerButton" is displayed
 
-  @run
+  @run @test2
   Scenario: Register page is accessible from Home Page
     When "myAccountButton" button is clicked
     And "registerButton" button is clicked
     Then the new url contains the following string "register"
 
-  @run
+  @run @test3
   Scenario Outline: Register page url contains the following word <keyword>
     When "myAccountButton" button is clicked
     And "registerButton" button is clicked
@@ -27,22 +27,28 @@ Feature: Register feature
       | index            |
       | account/register |
 
-  @fieldValidation @run
-  Scenario Outline: Error message is displayed when using invalid <email> email value
+  @fieldValidation @run @test4
+  Scenario Outline: Error message is displayed when using invalid <password> as password value
     When "myAccountButton" button is clicked
     And "registerButton" button is clicked
     Then "RegisterPage" is the new page opened
     And the new url contains the following string "register"
     When the registration form is populated with below data:
-      | firstName | George   |
-      | lastName  | Bush     |
-      | email     | <email>  |
-      | password  | password |
+      | firstName       | George          |
+      | lastName        | Bush            |
+      | email           | ghita@gmail.com |
+      | telephone       | 123456789       |
+      | password        | <password>      |
+      | passwordConfirm | password        |
     And "privacyCheckBox" button is clicked
     And "continueButton" button is clicked
     Then the following errors are displayed on the screen:
-      | <error>                                                                           |
-      | Warning: Please include an '@' in the email address. '<email>' is missing an '@'. |
+      | <error>                                        |
+      | Password confirmation does not match password! |
     Examples:
-      | email      | error                                                                    |
-      | @gmail.com | Please include an '@' in the email address. '<email>' is missing an '@'. |
+      | password  | error                                         |
+      |           | Password must be between 4 and 20 characters! |
+      | 1         | Password must be between 4 and 20 characters! |
+      | 12        | Password must be between 4 and 20 characters! |
+      | 123       | Password must be between 4 and 20 characters! |
+      | password1 |                                               |
