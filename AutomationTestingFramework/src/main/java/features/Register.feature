@@ -5,10 +5,12 @@ Feature: Register feature
   Background:
     Given "HomePage" is opened
 
+  @run @fast
   Scenario: Register button is displayed on Home Page
     When "myAccountButton" button is clicked
     Then "registerButton" is displayed
 
+  @run
   Scenario: Register page is accessible from Home Page
     When "myAccountButton" button is clicked
     And "registerButton" button is clicked

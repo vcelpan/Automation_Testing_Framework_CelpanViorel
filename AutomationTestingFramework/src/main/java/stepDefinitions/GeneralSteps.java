@@ -6,7 +6,8 @@ import cucumber.api.java.en.Given;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import managers.LoggerManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -19,6 +20,8 @@ public class GeneralSteps {
 
     private final TestContext testContext;
 
+    private static final Logger logger = LogManager.getLogger(GeneralSteps.class);
+
     public GeneralSteps(TestContext context) {
         testContext = context;
     }
@@ -26,7 +29,7 @@ public class GeneralSteps {
     @Given("^\"([^\"]*)\" is opened$")
     public void isOpened(String page) {
         Page.navigateToPage(page, testContext.getWebDriverManager().getDriver());
-        LoggerManager.logInfo(page + " is opened");
+        logger.info(page + " is opened");
         testContext.getScenarioContext().setContext(ContextKeys.PAGE, page);
 
         boolean verdict = testContext.getWebDriverManager().getDriver().getCurrentUrl().contains(Page.url);
@@ -36,7 +39,7 @@ public class GeneralSteps {
     @Then("^\"([^\"]*)\" is the new page opened$")
     public void isTheNewPageOpened(String page) {
         testContext.getScenarioContext().setContext(ContextKeys.PAGE, page);
-        LoggerManager.logInfo(page + " is opened");
+        logger.info(page + " is opened");
 
         boolean verdict = testContext.getWebDriverManager().getDriver().getCurrentUrl().contains(Page.url);
         Assertions.assertTrue(verdict, "The url contains: " + Page.url);
@@ -45,13 +48,13 @@ public class GeneralSteps {
     @When("^\"([^\"]*)\" button is clicked$")
     public void buttonIsClicked(String button) throws InterruptedException {
         Page.clickOnElement(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
-        LoggerManager.logInfo(button + " is clicked");
+        logger.info(button + " is clicked");
     }
 
     @Then("^\"([^\"]*)\" is displayed$")
     public void isDisplayed(String button) {
         boolean verdict = Page.elementIsDisplayed(testContext.getScenarioContext().getContext(ContextKeys.PAGE), button, testContext.getWebDriverManager().getDriver());
-        LoggerManager.logInfo(button + " is displayed: " + verdict);
+        logger.info(button + " is displayed: " + verdict);
         Assertions.assertTrue(verdict, "The button is displayed.");
     }
 
