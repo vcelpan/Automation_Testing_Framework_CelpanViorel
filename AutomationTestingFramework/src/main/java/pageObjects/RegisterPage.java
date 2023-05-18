@@ -14,15 +14,19 @@ public class RegisterPage extends Page {
     private WebElement lastNameInput;
     @FindBy(id = "input-email")
     private WebElement emailInput;
+    @FindBy(id = "input-telephone")
+    private WebElement telephoneInput;
     @FindBy(id = "input-password")
     private WebElement passwordInput;
-    @FindBy(id = "input-newsletter-yes")
+    @FindBy(id = "input-confirm")
+    private WebElement passwordConfirmInput;
+    @FindBy(xpath = "//*[@id=\"content\"]/form/fieldset[3]/div/div/label[1]/input")
     private WebElement subscribeRadioButtonYes;
-    @FindBy(id = "input-newsletter-no")
+    @FindBy(xpath = "//*[@id=\"content\"]/form/fieldset[3]/div/div/label[2]/input")
     private WebElement subscribeRadioButtonNo;
-    @FindBy(xpath = "//*[@id=\"form-register\"]/div/div/div/input")
+    @FindBy(xpath = "//*[@id=\"content\"]/form/div/div/input[1]")
     private WebElement privacyCheckBox;
-    @FindBy(xpath = "//*[@id=\"form-register\"]/div/div/button")
+    @FindBy(xpath = "//*[@id=\"content\"]/form/div/div/input[2]")
     private WebElement continueButton;
 
     public RegisterPage(WebDriver webDriver) {
