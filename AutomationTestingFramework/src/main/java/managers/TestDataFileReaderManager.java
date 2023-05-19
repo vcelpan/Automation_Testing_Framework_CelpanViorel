@@ -55,4 +55,19 @@ public class TestDataFileReaderManager {
         }
     }
 
+    public static String getRestUrl() {
+        if (properties == null)
+            initializeProperties();
+        String browserType = properties.getProperty("restUrl");
+        if (browserType != null){
+            logger.info("The 'restUrl' specified in config.properties: " + browserType);
+            return browserType;
+        }
+        else {
+            String message = "The 'restUrl' is not specified in the config.properties file for the Key:restUrl";
+            logger.error(message);
+            throw new RuntimeException(message);
+        }
+    }
+
 }

@@ -2,5 +2,8 @@ package ContextManagers;
 
 public enum ContextKeys {
     PAGE,
-    EMAIL
+    EMAIL,
+
+    REQUEST_SPEC,
+    RESPONSE
 }

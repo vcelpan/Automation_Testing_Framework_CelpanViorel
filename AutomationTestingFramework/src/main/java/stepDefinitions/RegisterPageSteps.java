@@ -2,6 +2,8 @@ package stepDefinitions;
 
 import ContextManagers.ContextKeys;
 import ContextManagers.TestContext;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import pageObjects.Page;
 import pageObjects.RegisterPage;
