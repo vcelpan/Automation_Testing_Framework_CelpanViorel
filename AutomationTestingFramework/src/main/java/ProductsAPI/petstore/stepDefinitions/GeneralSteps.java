@@ -6,6 +6,8 @@ import ProductsAPI.petstore.utils.RestEndpoint;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -15,6 +17,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.junit.Assert;
+
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -33,8 +37,11 @@ public class GeneralSteps {
         RequestSpecification specification = testContext.getRestManager().getRequestSpecification();
         testContext.getScenarioContext().setContext(ContextKeys.REQUEST_SPEC, specification);
 
+        logger.info(String.format("A '%s' request to '%s' endpoint", method, endpoint));
+        logger.info(String.format("Request body: \n%s", new JSONObject(data).toString(4)));
+
         Response response = specification.body(data).request(method, endpoint.getEndpoint());
-        response.getBody().prettyPrint();
+        logger.info(String.format("Response body: \n%s",  response.getBody().prettyPrint()));
         testContext.getScenarioContext().setContext(ContextKeys.RESPONSE, response);
     }
 
@@ -43,27 +50,50 @@ public class GeneralSteps {
         RequestSpecification specification = testContext.getRestManager().getRequestSpecification();
         testContext.getScenarioContext().setContext(ContextKeys.REQUEST_SPEC, specification);
 
-        String endPointUpdated =endpoint.getEndpoint().replace(String.format("{%s}", pathVarName), variable);
+        String endPointUpdated = endpoint.getEndpoint().replace(String.format("{%s}", pathVarName), variable);
+        logger.info(String.format("A '%s' request to '%s' endpoint", method, endPointUpdated));
+
         Response response = specification.request(method, endPointUpdated);
-        response.getBody().prettyPrint();
+        logger.info(String.format("Response body: \n%s",  response.getBody().prettyPrint()));
         testContext.getScenarioContext().setContext(ContextKeys.RESPONSE, response);
     }
 
-    @And("^the response code is \"([^\"]*)\"$")
+    @Then("^the response code is \"([^\"]*)\"$")
     public void theResponseCodeIs(Integer expectedResponseCode) {
         Response response = (Response) testContext.getScenarioContext().getContext(ContextKeys.RESPONSE);
-        response.getBody().prettyPrint();
 
-        //assertion
-        response.then().statusCode(expectedResponseCode);
-        String errorMessage = "Status response is %s";
-        Assert.assertEquals(String.format(errorMessage, response.getStatusCode()),
-                response.getStatusCode(), (int) expectedResponseCode);
-
+        String message = "Status code is ";
+        try {
+            response.then().statusCode(expectedResponseCode);
+            logger.info(message + expectedResponseCode);
+        } catch (AssertionError exception) {
+            logger.error(exception.getMessage());
+            throw exception;
+        }
     }
 
-    @And("^the response contains \"([^\"]*)\"$")
+    @Then("^the response contains \"([^\"]*)\"$")
     public void theResponseContains(String expectedString) {
+        Response response = (Response) testContext.getScenarioContext().getContext(ContextKeys.RESPONSE);
 
+        String message = String.format("Body matches string: '%s'", expectedString);
+        try {
+            Assert.assertTrue(message, response.getBody().asString().contains(expectedString));
+            logger.info(message);
+        } catch (AssertionError exception) {
+            logger.error(exception.getMessage());
+            throw exception;
+        }
+    }
+
+    @Given("^user sends a \"([^\"]*)\" request to \"([^\"]*)\" endpoint with \"([^\"]*)\" value for \"([^\"]*)\" path variable with the following data object$")
+    public void userSendsARequestToEndpointWithValueForPathVariableWithTheFollowingDataObject(Method method, RestEndpoint endpoint, String variable, String pathVarName, Map<String, String> data) {
+        RequestSpecification specification = testContext.getRestManager().getRequestSpecification();
+        testContext.getScenarioContext().setContext(ContextKeys.REQUEST_SPEC, specification);
+
+        String endPointUpdated = endpoint.getEndpoint().replace(String.format("{%s}", pathVarName), variable);
+        Response response = specification.body(data).request(method, endPointUpdated);
+        response.getBody().prettyPrint();
+        testContext.getScenarioContext().setContext(ContextKeys.RESPONSE, response);
     }
 }

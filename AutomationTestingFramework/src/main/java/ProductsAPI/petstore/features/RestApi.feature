@@ -11,11 +11,23 @@ Feature: Validate the USER entity
       | password   | pass             |
       | phone      | 79448040         |
       | userStatus | 0                |
-    And the response code is "200"
+    Then the response code is "200"
     And the response contains "unknown"
 
-    Scenario: Get user data
-      Given user sends a "GET" request to "USER_USERNAME" endpoint with "viocel" value for "username" path variable
-      And the response code is "200"
-      And the response contains "unknown"
+  Scenario: Get user by user name
+    Given user sends a "GET" request to "USER_USERNAME" endpoint with "viocel" value for "username" path variable
+    Then the response code is "200"
+    And the response contains "viocel"
 
+#  Scenario: Update user
+#    Given user sends a "PUT" request to "USER_USERNAME" endpoint with "viocel" value for "username" path variable with the following data object
+#      | id         | 1234567890000           |
+#      | username   | viorelCelpan            |
+#      | firstName  | Viorel                  |
+#      | lastName   | Celpan                  |
+#      | email      | viorel.celpan@gmail.com |
+#      | password   | pass                    |
+#      | phone      | 79448040                |
+#      | userStatus | 0                       |
+#    Then the response code is "200"
+#    And the response contains "unknown"
