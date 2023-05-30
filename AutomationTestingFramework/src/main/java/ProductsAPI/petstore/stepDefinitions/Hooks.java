@@ -25,4 +25,5 @@ public class Hooks {
     public void tearDownAfterEach(){
         logger.info("The test case is finished.\n");
     }
+
 }

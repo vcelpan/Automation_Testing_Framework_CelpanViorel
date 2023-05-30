@@ -14,7 +14,7 @@ public class TestDataFileReaderManager {
 
     public static void initializeProperties() {
         properties = new Properties();
-        String PROPERTY_FILE_PATH = "src/main/resources/config.properties";
+        String PROPERTY_FILE_PATH = "AutomationTestingFramework/src/main/resources/config.properties";
         try {
             properties.load(new FileReader(PROPERTY_FILE_PATH));
             logger.info("config.properties file successfully found!");
